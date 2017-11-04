@@ -1,16 +1,26 @@
-export const USER_UPDATE_USERNAME = 'USER_UPDATE_USERNAME';
-export const USER_SAVE = 'USER_SAVE';
-export const USER_EDIT = 'USER_EDIT';
+import api from '../../data/user-api';
 
-export const updateUserName = value => ({
-    type: USER_UPDATE_USERNAME,
+export const UPDATE_USER = 'UPDATE_USER';
+export const START_FETCH_USER = 'START_FETCH_USER';
+const debug = require('debug')('unleash:user-actions');
+
+const updateUser = value => ({
+    type: UPDATE_USER,
     value,
 });
 
-export const save = () => ({
-    type: USER_SAVE,
-});
+function handleError(error) {
+    debug(error);
+}
 
-export const openEdit = () => ({
-    type: USER_EDIT,
-});
+export function fetchUser() {
+    debug('Start fetching user');
+    return dispatch => {
+        dispatch({ type: START_FETCH_USER });
+
+        return api
+            .fetchUser()
+            .then(json => dispatch(updateUser(json)))
+            .catch(handleError);
+    };
+}
