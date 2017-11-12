@@ -7,7 +7,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.user.toJS(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowUserComponent);

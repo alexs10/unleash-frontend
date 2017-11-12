@@ -37,25 +37,34 @@ class EditUserComponent extends React.Component {
     };
 
     render() {
+        let content;
+        if (this.props.user.authDetails && this.props.user.authDetails.type === 'custom') {
+            content = <a href={this.props.user.authDetails.path}>Log inn</a>;
+        } else {
+            content = (
+                <form onSubmit={this.handleSubmit}>
+                    <Textfield
+                        label="Username"
+                        name="username"
+                        required
+                        value={this.props.user.userName}
+                        onChange={e => this.props.updateUserName(e.target.value)}
+                    />
+                    <br />
+                    <Button raised accent>
+                        Save
+                    </Button>
+                </form>
+            );
+        }
+
         return (
             <div>
                 <Modal isOpen={this.props.user.showDialog} contentLabel="test" style={customStyles}>
                     <h2>Action required</h2>
                     <div>
-                        <p>You have to specify a username to use Unleash. This will allow us to track your changes.</p>
-                        <form onSubmit={this.handleSubmit}>
-                            <Textfield
-                                label="Username"
-                                name="username"
-                                required
-                                value={this.props.user.userName}
-                                onChange={e => this.props.updateUserName(e.target.value)}
-                            />
-                            <br />
-                            <Button raised accent>
-                                Save
-                            </Button>
-                        </form>
+                        <p>You must be logged in to use Unleash.</p>
+                        {content}
                     </div>
                 </Modal>
             </div>
