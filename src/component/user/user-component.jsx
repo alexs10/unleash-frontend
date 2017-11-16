@@ -33,23 +33,33 @@ class EditUserComponent extends React.Component {
 
     handleSubmit = evt => {
         evt.preventDefault();
-        this.props.save();
+        const name = this.refs.name.inputRef.value;
+        const email = this.refs.email.inputRef.value;
+        const user = { name, email };
+        const path = evt.target.action;
+        this.props.unsecureLogin(path, user);
+
+        // TODO: should redirect to toggles view afterward and load toggles.
     };
 
     render() {
+        const authDetails = this.props.user.authDetails;
         let content;
-        if (this.props.user.authDetails && this.props.user.authDetails.type === 'custom') {
-            content = <a href={this.props.user.authDetails.path}>Log inn</a>;
-        } else {
+        if (authDetails && authDetails.type === 'custom') {
             content = (
-                <form onSubmit={this.handleSubmit}>
-                    <Textfield
-                        label="Username"
-                        name="username"
-                        required
-                        value={this.props.user.userName}
-                        onChange={e => this.props.updateUserName(e.target.value)}
-                    />
+                <div>
+                    <p>{authDetails.message}</p>
+                    <a href={authDetails.path}>Log inn</a>
+                </div>
+            );
+        } else if (authDetails && authDetails.type === 'builtin') {
+            content = (
+                <form onSubmit={this.handleSubmit} action={authDetails.path}>
+                    <p>{authDetails.message}</p>
+                    <p>This instance of Unleash has not set up with secure authentication.</p>
+                    <Textfield label="Name" name="name" required ref="name" />
+                    <br />
+                    <Textfield label="Email" name="email" required type="email" ref="email" />
                     <br />
                     <Button raised accent>
                         Save
@@ -62,10 +72,7 @@ class EditUserComponent extends React.Component {
             <div>
                 <Modal isOpen={this.props.user.showDialog} contentLabel="test" style={customStyles}>
                     <h2>Action required</h2>
-                    <div>
-                        <p>You must be logged in to use Unleash.</p>
-                        {content}
-                    </div>
+                    <div>{content}</div>
                 </Modal>
             </div>
         );

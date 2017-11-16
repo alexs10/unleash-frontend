@@ -25,3 +25,14 @@ export function fetchUser() {
             .catch(handleError);
     };
 }
+
+export function unsecureLogin(path, user) {
+    return dispatch => {
+        dispatch({ type: START_FETCH_USER });
+
+        return api
+            .unsecureLogin(path, user)
+            .then(json => dispatch(updateUser(json)))
+            .catch(handleError);
+    };
+}

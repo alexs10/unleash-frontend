@@ -1,4 +1,4 @@
-import { throwIfNotSuccess } from './helper';
+import { throwIfNotSuccess, headers, } from './helper';
 
 const URI = 'api/admin/user';
 
@@ -7,6 +7,14 @@ function fetchUser() {
         .then(throwIfNotSuccess)
         .then(response => response.json());
 }
+
+function unsecureLogin(path, user) {
+    return fetch(path, { method: 'POST', credentials: 'include', headers, body: JSON.stringify(user) })
+        .then(throwIfNotSuccess)
+        .then(response => response.json());
+}
+
 export default {
     fetchUser,
+    unsecureLogin,
 };

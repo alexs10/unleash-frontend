@@ -41,7 +41,7 @@ function receiveFeatureToggles(json) {
 function dispatchAndThrow(dispatch, type) {
     return error => {
         dispatch({ type, error, receivedAt: Date.now() });
-        throw error;
+        // throw error;
     };
 }
 

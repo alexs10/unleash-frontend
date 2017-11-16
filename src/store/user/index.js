@@ -5,7 +5,10 @@ import { ERROR_FETCH_FEATURE_TOGGLES } from '../feature-actions';
 const userStore = (state = new $Map(), action) => {
     switch (action.type) {
         case UPDATE_USER:
-            state = state.set('profile', action.value);
+            state = state
+                .set('profile', action.value)
+                .set('showDialog', false)
+                .set('authDetails', undefined);
             return state;
         case ERROR_FETCH_FEATURE_TOGGLES:
             state = state.set('authDetails', action.error.body).set('showDialog', true);
