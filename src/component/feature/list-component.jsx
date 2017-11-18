@@ -25,7 +25,7 @@ export default class FeatureListComponent extends React.PureComponent {
         this.props.fetchFeatureToggles();
         this.props.fetchFeatureMetrics();
         this.timer = setInterval(() => {
-            this.props.fetchFeatureToggles();
+            // this.props.fetchFeatureToggles();
             this.props.fetchFeatureMetrics();
         }, 5000);
     }

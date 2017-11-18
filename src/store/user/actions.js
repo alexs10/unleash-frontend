@@ -1,5 +1,4 @@
 import api from '../../data/user-api';
-
 export const UPDATE_USER = 'UPDATE_USER';
 export const AUTH_REQUIRED = 'AUTH_REQUIRED';
 export const START_FETCH_USER = 'START_FETCH_USER';

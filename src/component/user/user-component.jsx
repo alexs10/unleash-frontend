@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Textfield, Button } from 'react-mdl';
 import Modal from 'react-modal';
+import { hashHistory } from 'react-router';
 
 const customStyles = {
     overlay: {
@@ -27,19 +28,16 @@ const customStyles = {
 class EditUserComponent extends React.Component {
     static propTypes = {
         user: PropTypes.object.isRequired,
-        updateUserName: PropTypes.func.isRequired,
-        save: PropTypes.func.isRequired,
     };
 
     handleSubmit = evt => {
         evt.preventDefault();
-        const name = this.refs.name.inputRef.value;
         const email = this.refs.email.inputRef.value;
-        const user = { name, email };
+        const user = { email };
         const path = evt.target.action;
-        this.props.unsecureLogin(path, user);
 
-        // TODO: should redirect to toggles view afterward and load toggles.
+        // Todo: clean up (other locations needs fixing also)
+        this.props.unsecureLogin(path, user).then(this.props.fetchFeatureToggles);
     };
 
     render() {
@@ -56,13 +54,11 @@ class EditUserComponent extends React.Component {
             content = (
                 <form onSubmit={this.handleSubmit} action={authDetails.path}>
                     <p>{authDetails.message}</p>
-                    <p>This instance of Unleash has not set up with secure authentication.</p>
-                    <Textfield label="Name" name="name" required ref="name" />
-                    <br />
+                    <p>This instance of Unleash is not set up with a secure authentication provider.</p>
                     <Textfield label="Email" name="email" required type="email" ref="email" />
                     <br />
                     <Button raised accent>
-                        Save
+                        Unsecure Login
                     </Button>
                 </form>
             );

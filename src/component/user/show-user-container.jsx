@@ -7,7 +7,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user.toJS(),
+    profile: state.user.get('profile'),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowUserComponent);

@@ -4,7 +4,7 @@ import { Icon } from 'react-mdl';
 
 export default class ShowUserComponent extends React.Component {
     static propTypes = {
-        user: PropTypes.object.isRequired,
+        profile: PropTypes.object,
     };
 
     componentDidMount() {
@@ -12,11 +12,11 @@ export default class ShowUserComponent extends React.Component {
     }
 
     render() {
-        const userName = this.props.user.email || '';
+        const email = this.props.profile ? this.props.profile.email : '';
         return (
             <span>
                 <Icon name="account_circle" />
-                <span> {userName}</span>
+                <span> {email}</span>
             </span>
         );
     }
