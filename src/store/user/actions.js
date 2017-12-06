@@ -1,7 +1,8 @@
 import api from '../../data/user-api';
+import { dispatchAndThrow } from '../util';
 export const UPDATE_USER = 'UPDATE_USER';
-export const AUTH_REQUIRED = 'AUTH_REQUIRED';
 export const START_FETCH_USER = 'START_FETCH_USER';
+export const ERROR_FETCH_USER = 'ERROR_FETCH_USER';
 const debug = require('debug')('unleash:user-actions');
 
 const updateUser = value => ({
@@ -21,7 +22,7 @@ export function fetchUser() {
         return api
             .fetchUser()
             .then(json => dispatch(updateUser(json)))
-            .catch(handleError);
+            .catch(dispatchAndThrow(dispatch, ERROR_FETCH_USER));
     };
 }
 

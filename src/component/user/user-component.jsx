@@ -37,7 +37,12 @@ class EditUserComponent extends React.Component {
         const path = evt.target.action;
 
         // Todo: clean up (other locations needs fixing also)
-        this.props.unsecureLogin(path, user).then(this.props.fetchFeatureToggles);
+        this.props
+            .unsecureLogin(path, user)
+            .then(this.props.fetchFeatureToggles)
+            .then(() => {
+                hashHistory.push('/features');
+            });
     };
 
     render() {
@@ -54,7 +59,10 @@ class EditUserComponent extends React.Component {
             content = (
                 <form onSubmit={this.handleSubmit} action={authDetails.path}>
                     <p>{authDetails.message}</p>
-                    <p>This instance of Unleash is not set up with a secure authentication provider.</p>
+                    <p>
+                        This instance of Unleash is not set up with a secure authentication provider. You can read more
+                        about <a href="">securing unleash on GitHub</a>
+                    </p>
                     <Textfield label="Email" name="email" required type="email" ref="email" />
                     <br />
                     <Button raised accent>

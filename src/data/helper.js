@@ -14,7 +14,7 @@ class ServiceError extends Error {
     }
 }
 
-class AuthenticationError extends Error {
+export class AuthenticationError extends Error {
     constructor(statusCode, body) {
         super('Authentication required');
         this.name = 'AuthenticationError';
@@ -26,7 +26,6 @@ class AuthenticationError extends Error {
 export function throwIfNotSuccess(response) {
     if (!response.ok) {
         if (response.status === 401) {
-            console.log('auth required, notify user-store!');
             return new Promise((resolve, reject) => {
                 response.json().then(body => reject(new AuthenticationError(response.status, body)));
             });

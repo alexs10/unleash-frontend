@@ -1,6 +1,6 @@
 import { Map as $Map } from 'immutable';
 import { UPDATE_USER } from './actions';
-import { ERROR_FETCH_FEATURE_TOGGLES } from '../feature-actions';
+import { AUTH_REQUIRED } from '../util';
 
 const userStore = (state = new $Map(), action) => {
     switch (action.type) {
@@ -10,7 +10,7 @@ const userStore = (state = new $Map(), action) => {
                 .set('showDialog', false)
                 .set('authDetails', undefined);
             return state;
-        case ERROR_FETCH_FEATURE_TOGGLES:
+        case AUTH_REQUIRED:
             state = state.set('authDetails', action.error.body).set('showDialog', true);
             return state;
         default:

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'react-mdl';
+import styles from './user.scss';
 
 export default class ShowUserComponent extends React.Component {
     static propTypes = {
@@ -13,11 +13,11 @@ export default class ShowUserComponent extends React.Component {
 
     render() {
         const email = this.props.profile ? this.props.profile.email : '';
+        const imageUrl = email ? this.props.profile.imageUrl : '';
         return (
-            <span>
-                <Icon name="account_circle" />
-                <span> {email}</span>
-            </span>
+            <div className={styles.showUser}>
+                <img src={imageUrl} title={email} alt={email} />
+            </div>
         );
     }
 }
