@@ -18,7 +18,7 @@ import { Link } from 'react-router';
 import styles from './styles.scss';
 import ErrorContainer from './error/error-container';
 
-import UserContainer from './user/user-container';
+import AuthContainer from './user/auth-container';
 import ShowUserContainer from './user/show-user-container';
 import { ScrollContainer } from 'react-router-scroll';
 
@@ -135,7 +135,7 @@ export default class App extends Component {
 
         return (
             <div className={styles.container}>
-                <UserContainer />
+                <AuthContainer />
                 <Layout fixedHeader>
                     <Header title={this.getTitleWithLinks()}>
                         <Navigation>

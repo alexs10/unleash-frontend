@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import UserComponent from './user-component';
+import AuthComponent from './auth-component';
 import { unsecureLogin } from '../../store/user/actions';
 import { fetchFeatureToggles } from '../../store/feature-actions';
 
@@ -12,4 +12,4 @@ const mapStateToProps = state => ({
     user: state.user.toJS(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthComponent);
