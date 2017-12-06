@@ -1,4 +1,4 @@
-import { throwIfNotSuccess, headers, } from './helper';
+import { throwIfNotSuccess, headers } from './helper';
 
 const URI = 'api/admin/user';
 
